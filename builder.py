@@ -61,10 +61,11 @@ def build():
     print("Building an video...")
     cursor = 13
     tw, th = get_terminal_size().columns // 1.2, get_terminal_size().lines // 1.2
+    l = order(listdir('source'))
+    ll = len(l)
     
-    for filename in order(listdir('source')):
+    for index, filename in enumerate(list(l)):
         frame_commands = ""
-        print("Building "+filename+" frame...")
         im = Image.open("source/"+filename, "r")
         im.load()
         for h in range(0, im.height, im.height // int(th)):
@@ -101,6 +102,6 @@ def build():
         frame_commands += ";먕" + ";"*frame_delay + "먀"
         with open(outname+".nyan", "a", encoding="utf-8") as f:
             f.write(frame_commands)
-
+        print(f"Progress: {index}/{ll} \033[92m{index/ll*100}%\033[0m", end="\r")
 
 build()
