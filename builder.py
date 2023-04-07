@@ -1,5 +1,6 @@
 from PIL import Image
 from os import listdir, get_terminal_size
+from sys import stdout
 
 
 outname = input("Output Filename: ")
@@ -102,6 +103,6 @@ def build():
         frame_commands += ";먕" + ";"*frame_delay + "먀"
         with open(outname+".nyan", "a", encoding="utf-8") as f:
             f.write(frame_commands)
-        print(f"Progress: {index}/{ll} \033[92m{index/ll*100}%\033[0m", end="\r")
+        stdout.write(f"Progress: {index}/{ll} \033[92m{int(index/ll*100)}%\033[0m\r")
 
 build()
