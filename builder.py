@@ -1,7 +1,7 @@
 from PIL import Image
 from os import listdir, get_terminal_size
 from sys import stdout
-
+from time import time
 
 outname = input("Output Filename: ")
 frame_delay = int(input("Frame delay (n*10ms): "))
@@ -60,6 +60,7 @@ def order(files: list):
 
 def build():
     print("Building an video...")
+    start_time = time()
     cursor = 13
     tw, th = get_terminal_size().columns // 1.2, get_terminal_size().lines // 1.2
     l = order(listdir('source'))
@@ -103,6 +104,6 @@ def build():
         frame_commands += ";먕" + ";"*frame_delay + "먀"
         with open(outname+".nyan", "a", encoding="utf-8") as f:
             f.write(frame_commands)
-        stdout.write(f"Progress: {index}/{ll} \033[92m{int(index/ll*100)}%\033[0m\r")
+        stdout.write(f"Progress: {index}/{ll} \033[92m{int(index/ll*100)}%\033[0m\t\t|\tTime elapsed: {int(time() - start_time)}s\r")
 
 build()
